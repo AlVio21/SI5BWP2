@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { BukuService } from '../services/buku.service';
 
 @Component({
   selector: 'app-buku',
@@ -7,6 +8,9 @@ import { NgForm } from '@angular/forms';
   styleUrl: './buku.component.css'
 })
 export class BukuComponent {
+  constructor(public bukuService : BukuService){
+
+  }
   simpanBuku(form : NgForm){
 
     if(form.invalid){
@@ -31,5 +35,7 @@ export class BukuComponent {
     console.log(form.value.judul);
     console.log(form.value.penulis);
     console.log('Genre:', genres);
+
+    this.bukuService.addBuku(form.value.judul, form.value.penulis, genres);
   }
 }

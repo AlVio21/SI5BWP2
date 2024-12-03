@@ -48,8 +48,9 @@ export class BukuService {
   deleteBuku(buku : Buku){
     this.http.delete<{message : string}>(this.url + buku._id)
     .subscribe((response)=>{
-      console.log(response.message);
+      // console.log(response.message);
       this.getBuku();
+      this.subjectExecute.next(response.message);
     });
   }
 
@@ -60,7 +61,7 @@ export class BukuService {
       penulis : penulis,
       genre : genres
     }
-    this.http.post<{message : string}>(this.url + id,buku)
+    this.http.put<{message : string}>(this.url + id,buku)
     .subscribe((response)=>{
       this.getBuku();
       this.subjectExecute.next(response.message);

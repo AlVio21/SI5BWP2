@@ -25,7 +25,8 @@ export class BukuComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    
+    this.getBukuSub.unsubscribe();
+    this.messageSub.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -56,18 +57,27 @@ export class BukuComponent implements OnInit, OnDestroy{
     });
 
     form.setValue({
+      id : buku._id,
       judul : buku.judul,
-      penulis : buku,
+      penulis : buku.penulis,
       genre1 : gen1,
       genre2 : gen2,
       genre3 : gen3
     })
+
+    this.mode="Perbaiki"
+  }
+
+  onReset(){
+    this.mode = "Simpan"
+    this.messageExecute = ""
+
   }
 
   simpanBuku(form : NgForm){
 
     if(form.invalid){
-      console.log("Tidak Valid");
+      // console.log("Tidak Valid");
       return;
     }
 
@@ -84,13 +94,18 @@ export class BukuComponent implements OnInit, OnDestroy{
     if(form.value.genre3==true){
       genres.push("Lainnya")
     }
-    console.log("Pengujian Klik")
-    console.log(form.value.judul);
-    console.log(form.value.penulis);
-    console.log('Genre:', genres);
+    // console.log("Pengujian Klik")
+    // console.log(form.value.judul);
+    // console.log(form.value.penulis);
+    // console.log('Genre:', genres);
+    if(this.mode.toUpperCase() === "SIMPAN"){
+      this.bukuService.addBuku(form.value.judul, form.value.penulis, genres);
+    }else{
+      this.bukuService.updateBuku(form.value.judul, form.value.penulis, genres, form.value.id);
+    }
 
-    this.bukuService.addBuku(form.value.judul, form.value.penulis, genres);
     form.resetForm();
+    this.mode="Simpan";
   }
 
   hapusBuku(buku : Buku){

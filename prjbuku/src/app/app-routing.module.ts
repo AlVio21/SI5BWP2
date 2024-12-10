@@ -7,27 +7,27 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
-    path : "register",
-    component : RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
   },
   {
-    path : 'admin',
-    component : AdminComponent,
-    children : [
+    path: 'admin',
+    component: AdminComponent,
+    children: [
       {
-        path : '',
-        component : DashboardComponent
+        path: '',
+        component: DashboardComponent,
       },
       {
-        path : 'buku',
-        component : BukuComponent
-      }
-    ]
-  }
+        path: 'buku',
+        component: BukuComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

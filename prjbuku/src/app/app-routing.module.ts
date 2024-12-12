@@ -4,6 +4,9 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BukuComponent } from './buku/buku.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -11,8 +14,13 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: 'admin',
     component: AdminComponent,
+    canActivate : [AuthGuard],
     children: [
       {
         path: '',
@@ -29,5 +37,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

@@ -42,8 +42,7 @@ export class RegisterComponent implements OnInit {
     this.registerSub = this.userService
       .executeUserListener()
       .subscribe((value) => {
-        console.log(value);
-        value = "Email sudah terdaftar"
+        //console.log(value);
         this.executeState = value;
         if (this.executeState != '') {
           this.showSpinner = false;

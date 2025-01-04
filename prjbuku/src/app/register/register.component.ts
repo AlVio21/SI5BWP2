@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
+import { BukuService } from '../services/buku.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +21,11 @@ export class RegisterComponent implements OnInit {
   showSpinner = false;
   private registerSub: Subscription = new Subscription();
 
-  constructor(public userService: UserService, private fb: FormBuilder) {
+  constructor(
+    public userService: UserService,
+    public bukuService: BukuService,
+    private fb: FormBuilder
+  ) {
     this.registerForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -29,12 +39,16 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.registerSub = this.userService.executeUserListener().subscribe((value) => {
-      this.executeState = value;
-      if (this.executeState != '') {
-        this.showSpinner = false;
-      }
-    });
+    this.registerSub = this.userService
+      .executeUserListener()
+      .subscribe((value) => {
+        console.log(value);
+        value = "Email sudah terdaftar"
+        this.executeState = value;
+        if (this.executeState != '') {
+          this.showSpinner = false;
+        }
+      });
   }
 
   onSubmit(form: FormGroup) {
@@ -47,7 +61,10 @@ export class RegisterComponent implements OnInit {
     this.userService.addUser(form.value.email, form.value.password);
   }
 
-  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+  checkIfMatchingPasswords(
+    passwordKey: string,
+    passwordConfirmationKey: string
+  ) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[passwordKey];
       let passwordConfirmationInput = group.controls[passwordConfirmationKey];

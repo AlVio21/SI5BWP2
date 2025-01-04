@@ -5,22 +5,25 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BukuComponent } from './buku/buku.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './services/auth.guard';
-
+import { AuthGuard } from './services/auth-guard';
 
 const routes: Routes = [
   {
-    path: 'register',
-    component: RegisterComponent,
+    path: '',
+    component: LoginComponent,
   },
   {
     path: 'login',
     component: LoginComponent,
   },
   {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
     path: 'admin',
     component: AdminComponent,
-    canActivate : [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -37,6 +40,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
@@ -12,7 +14,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './services/auth-interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
     DashboardComponent,
     BukuComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,13 +29,12 @@ import { AuthInterceptor } from './services/auth-interceptor';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),
-    { provide: HTTP_INTERCEPTORS, useClass:
-      AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

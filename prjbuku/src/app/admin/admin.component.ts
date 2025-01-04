@@ -6,7 +6,7 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './admin.component.css',
 })
 export class AdminComponent {
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {}
   logout() {
     //console.log('Log out');
     this.auth.logout();
